@@ -7452,17 +7452,6 @@
             The key to delete
             </param>
         </member>
-        <member name="M:CitizenFX.Shared.Native.Natives.DoesTrainStopAtStations(System.Int32)">
-            <summary>
-            DOES_TRAIN_STOP_AT_STATIONS
-            </summary>
-            <param name="train">
-            The train handle
-            </param>
-            <returns>
-            True if the train stops at stations. False otherwise
-            </returns>
-        </member>
         <member name="M:CitizenFX.Shared.Native.Natives.DuplicateFunctionReference(CitizenFX.Core.CString)">
             <summary>
             DUPLICATE_FUNCTION_REFERENCE
@@ -7930,60 +7919,6 @@
             Value.
             </returns>
         </member>
-        <member name="M:CitizenFX.Shared.Native.Natives.GetTrainCruiseSpeed(System.Int32)">
-            <summary>
-            Gets the trains desired speed.
-            </summary>
-            <param name="train">
-            The train handle
-            </param>
-            <returns>
-            The desired cruise speed of the train. Not the speed the train is currently traveling at
-            </returns>
-        </member>
-        <member name="M:CitizenFX.Shared.Native.Natives.GetTrainDirection(System.Int32)">
-            <summary>
-            Gets the direction the train is facing
-            </summary>
-            <param name="train">
-            The train handle
-            </param>
-            <returns>
-            True if the train is moving forward on the track, False otherwise
-            </returns>
-        </member>
-        <member name="M:CitizenFX.Shared.Native.Natives.GetTrainState(System.Int32)">
-            <summary>
-            GET_TRAIN_STATE
-            </summary>
-            <param name="train">
-            The train handle
-            </param>
-            <returns>
-            The trains current state```cpp
-            enum eTrainState
-            {
-                MOVING = 0,
-                ENTERING_STATION,
-                OPENING_DOORS,
-                STOPPED,
-                CLOSING_DOORS,
-                LEAVING_STATION,
-            }
-            ```
-            </returns>
-        </member>
-        <member name="M:CitizenFX.Shared.Native.Natives.GetTrainTrackIndex(System.Int32)">
-            <summary>
-            GET_TRAIN_TRACK_INDEX
-            </summary>
-            <param name="train">
-            The train handle
-            </param>
-            <returns>
-            The track index the train is currently on.
-            </returns>
-        </member>
         <member name="M:CitizenFX.Shared.Native.Natives.GetVehicleHandbrake(System.Int32)">
             <summary>
             GET_VEHICLE_HANDBRAKE
@@ -8314,11 +8249,6 @@
             Nonsynchronous [DELETE_RESOURCE_KVP](#\_0x7389B5DF) operation; see [FLUSH_RESOURCE_KVP](#\_0x5240DA5A).
             </summary>
         </member>
-        <member name="F:CitizenFX.Shared.Native.Hash.DOES_TRAIN_STOP_AT_STATIONS">
-            <summary>
-            DOES_TRAIN_STOP_AT_STATIONS
-            </summary>
-        </member>
         <member name="F:CitizenFX.Shared.Native.Hash.DUPLICATE_FUNCTION_REFERENCE">
             <summary>
             DUPLICATE_FUNCTION_REFERENCE
@@ -8601,26 +8531,6 @@
         <member name="F:CitizenFX.Shared.Native.Hash.GET_STATE_BAG_VALUE">
             <summary>
             Returns the value of a state bag key.
-            </summary>
-        </member>
-        <member name="F:CitizenFX.Shared.Native.Hash.GET_TRAIN_CRUISE_SPEED">
-            <summary>
-            Gets the trains desired speed.
-            </summary>
-        </member>
-        <member name="F:CitizenFX.Shared.Native.Hash.GET_TRAIN_DIRECTION">
-            <summary>
-            Gets the direction the train is facing
-            </summary>
-        </member>
-        <member name="F:CitizenFX.Shared.Native.Hash.GET_TRAIN_STATE">
-            <summary>
-            GET_TRAIN_STATE
-            </summary>
-        </member>
-        <member name="F:CitizenFX.Shared.Native.Hash.GET_TRAIN_TRACK_INDEX">
-            <summary>
-            GET_TRAIN_TRACK_INDEX
             </summary>
         </member>
         <member name="F:CitizenFX.Shared.Native.Hash.GET_VEHICLE_HANDBRAKE">
