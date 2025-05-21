@@ -1,6 +1,6 @@
-print("[CoreNova] Inicializando framework...")
+FCore = {}
+players = {}
 
--- Aguarda o carregamento do banco
 CreateThread(function()
     Wait(100)
     exports[GetCurrentResourceName()]:initDatabase()

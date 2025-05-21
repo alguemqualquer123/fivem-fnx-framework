@@ -1,0 +1,1 @@
+FCore.Prepare("core:isAccount", "SELECT * FROM users WHERE license = @license LIMIT 1")

@@ -1,6 +1,4 @@
-local players = {}
-
-function CoreNova.LoadPlayer(src)
+function FCore.LoadPlayer(src)
     local license = GetIdentifier(src, "license")
     if not license then return end
 
@@ -10,7 +8,6 @@ function CoreNova.LoadPlayer(src)
             local data = result[1]
             players[src] = data
 
-            -- Sincroniza dados no stateBag
             local state = Player(src).state
             state:set('playerData', {
                 id = data.id,
@@ -19,22 +16,21 @@ function CoreNova.LoadPlayer(src)
                 job = data.job or "unemployed"
             }, true)
 
-            print(("[CoreNova] %s (%s) carregado."):format(data.name, license))
+            print(("[FCore] %s (%s) carregado."):format(data.name, license))
             p:resolve(true)
         else
-            -- Novo jogador
             MySQL.query('INSERT INTO players (license, name) VALUES (?, ?)', {
                 license,
                 GetPlayerName(src)
             }, function(inserted)
-                CoreNova.LoadPlayer(src) -- chama novamente após criar
+                FCore.LoadPlayer(src)
             end)
         end
     end)
     return Citizen.Await(p)
 end
 
-function CoreNova.SavePlayer(src)
+function FCore.SavePlayer(src)
     local data = players[src]
     if not data then return end
 
@@ -48,12 +44,11 @@ function CoreNova.SavePlayer(src)
     })
 end
 
-function CoreNova.OnPlayerDropped(src)
-    CoreNova.SavePlayer(src)
+function FCore.OnPlayerDropped(src)
+    FCore.SavePlayer(src)
     players[src] = nil
 end
 
--- Helper
 function GetIdentifier(src, type)
     for _, v in ipairs(GetPlayerIdentifiers(src)) do
         if string.find(v, type) then

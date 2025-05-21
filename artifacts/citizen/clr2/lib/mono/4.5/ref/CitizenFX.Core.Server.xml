@@ -6728,6 +6728,11 @@
             Requests whether or not the player owns the specified package.
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.DOES_TRAIN_STOP_AT_STATIONS">
+            <summary>
+            DOES_TRAIN_STOP_AT_STATIONS
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.DROP_PLAYER">
             <summary>
             DROP_PLAYER
@@ -7573,6 +7578,11 @@
             GET_THRUSTER_THROTTLE
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_TRAIN_BACKWARD_CARRIAGE">
+            <summary>
+            GET_TRAIN_BACKWARD_CARRIAGE
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.GET_TRAIN_CARRIAGE_ENGINE">
             <summary>
             GET_TRAIN_CARRIAGE_ENGINE
@@ -7581,6 +7591,31 @@
         <member name="F:CitizenFX.Core.Native.Hash.GET_TRAIN_CARRIAGE_INDEX">
             <summary>
             GET_TRAIN_CARRIAGE_INDEX
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_TRAIN_CRUISE_SPEED">
+            <summary>
+            Gets the trains desired speed.
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_TRAIN_DIRECTION">
+            <summary>
+            Gets the direction the train is facing
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_TRAIN_FORWARD_CARRIAGE">
+            <summary>
+            GET_TRAIN_FORWARD_CARRIAGE
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_TRAIN_STATE">
+            <summary>
+            GET_TRAIN_STATE
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_TRAIN_TRACK_INDEX">
+            <summary>
+            GET_TRAIN_TRACK_INDEX
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.GET_VEHICLE_BODY_HEALTH">
@@ -7932,6 +7967,11 @@
         <member name="F:CitizenFX.Core.Native.Hash.IS_PRINCIPAL_ACE_ALLOWED">
             <summary>
             IS_PRINCIPAL_ACE_ALLOWED
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.IS_TRAIN_CABOOSE">
+            <summary>
+            IS_TRAIN_CABOOSE
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.IS_VEHICLE_ENGINE_STARTING">
@@ -10155,6 +10195,17 @@
             A boolean.
             </returns>
         </member>
+        <member name="M:CitizenFX.Core.Native.API.DoesTrainStopAtStations(System.Int32)">
+            <summary>
+            DOES_TRAIN_STOP_AT_STATIONS
+            </summary>
+            <param name="train">
+            The train handle
+            </param>
+            <returns>
+            True if the train stops at stations. False otherwise
+            </returns>
+        </member>
         <member name="M:CitizenFX.Core.Native.API.DropPlayer(System.String,System.String)">
             <summary>
             DROP_PLAYER
@@ -11551,6 +11602,17 @@
             Returns a value representing the main throttle of the jetpack. The values range from `0.0` (no throttle) to `1.0` (full throttle)
             </returns>
         </member>
+        <member name="M:CitizenFX.Core.Native.API.GetTrainBackwardCarriage(System.Int32)">
+            <summary>
+            GET_TRAIN_BACKWARD_CARRIAGE
+            </summary>
+            <param name="train">
+            The train handle
+            </param>
+            <returns>
+            The handle of the carriage behind this train in the chain. Otherwise returns 0 if the train is the caboose of the chain.
+            </returns>
+        </member>
         <member name="M:CitizenFX.Core.Native.API.GetTrainCarriageEngine(System.Int32)">
             <summary>
             GET_TRAIN_CARRIAGE_ENGINE
@@ -11571,6 +11633,71 @@
             </param>
             <returns>
             The carriage index. -1 returned if invalid result.
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.GetTrainCruiseSpeed(System.Int32)">
+            <summary>
+            Gets the trains desired speed.
+            </summary>
+            <param name="train">
+            The train handle
+            </param>
+            <returns>
+            The desired cruise speed of the train. Not the speed the train is currently traveling at
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.GetTrainDirection(System.Int32)">
+            <summary>
+            Gets the direction the train is facing
+            </summary>
+            <param name="train">
+            The train handle
+            </param>
+            <returns>
+            True if the train is moving forward on the track, False otherwise
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.GetTrainForwardCarriage(System.Int32)">
+            <summary>
+            GET_TRAIN_FORWARD_CARRIAGE
+            </summary>
+            <param name="train">
+            The train handle
+            </param>
+            <returns>
+            The handle of the carriage in front of this train in the chain. Otherwise returns 0 if the train has no carriage in front of it
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.GetTrainState(System.Int32)">
+            <summary>
+            GET_TRAIN_STATE
+            </summary>
+            <param name="train">
+            The train handle
+            </param>
+            <returns>
+            The trains current state```cpp
+            enum eTrainState
+            {
+            MOVING = 0,
+            ENTERING_STATION,
+            OPENING_DOORS,
+            STOPPED,
+            CLOSING_DOORS,
+            LEAVING_STATION,
+            }
+            ```
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.GetTrainTrackIndex(System.Int32)">
+            <summary>
+            GET_TRAIN_TRACK_INDEX
+            </summary>
+            <param name="train">
+            The train handle
+            </param>
+            <returns>
+            The track index the train is currently on.
             </returns>
         </member>
         <member name="M:CitizenFX.Core.Native.API.GetVehicleBodyHealth(System.Int32)">
@@ -12116,6 +12243,17 @@
             <summary>
             IS_PRINCIPAL_ACE_ALLOWED
             </summary>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.IsTrainCaboose(System.Int32)">
+            <summary>
+            IS_TRAIN_CABOOSE
+            </summary>
+            <param name="train">
+            The train handle
+            </param>
+            <returns>
+            Returns true if the train is the caboose of the chain.
+            </returns>
         </member>
         <member name="M:CitizenFX.Core.Native.API.IsVehicleEngineStarting(System.Int32)">
             <summary>

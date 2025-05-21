@@ -22,7 +22,7 @@ end
 
 function TriggerServerCallback(name, ...)
     local p = promise.new()
-    CallbackCounter += 1
+    CallbackCounter = CallbackCounter + 1
     local callbackId = ("client_cb_%s_%d"):format(name, CallbackCounter)
 
     ClientCallbacks[callbackId] = p

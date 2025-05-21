@@ -1,32 +1,18 @@
-
-
-RegisterCallback('getPlayerJob', function(source)
-    local player = Player(source)
-    return player.state.playerData and player.state.playerData.job or "unemployed"
-end)
-
-
 RegisterNetEvent('coreNova:playerLoaded', function()
     local src = source
-    local license = GetPlayerIdentifier(src, 0)
+    local license = GetIdentifier(src, "license")
 
-    local data = Citizen.Await(GetUserData(license))
-
-    if not data then
-        CreateUser(license, GetPlayerName(src))
-        data = Citizen.Await(GetUserData(license))
-    end
+    local data = GetUserData(license)
 
     SetPlayerState(src, "money", data.money)
     print("[CoreNova] Player "..src.." carregado.")
 end)
 
-
 RegisterNetEvent('coreNova:queueAccepted')
 AddEventHandler('coreNova:queueAccepted', function()
     local src = source
 
-    local success = CoreNova.LoadPlayer(src)
+    local success = FCore.LoadPlayer(src)
     if not success then
         DropPlayer(src, "Erro ao carregar seus dados.")
     end
@@ -34,5 +20,22 @@ end)
 
 AddEventHandler('playerDropped', function(reason)
     local src = source
-    CoreNova.OnPlayerDropped(src)
+    FCore.OnPlayerDropped(src)
 end)
+
+RegisterCallback("getPlayerJob", function(data, cb)
+    print("[getPlayerJob] Dados recebidos:", json.encode(data))
+
+    local playerSrc = data.source or data.playerId
+    local license = GetIdentifier(playerSrc, "license")
+
+    local userData = GetUserData(license)
+
+    if userData and userData.job then
+        cb({ job = userData.job })
+    else
+        cb({ job = "desempregado" })
+    end
+end)
+
+exports("FCore", FCore)
