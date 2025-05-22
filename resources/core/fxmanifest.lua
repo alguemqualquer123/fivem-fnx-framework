@@ -4,17 +4,25 @@ lua54 'yes'
 
 author 'SR VINIX'
 description 'CoreNova - Framework Base'
+version '1.0.0'
 
-loadscreen_manual_shutdown "yes"
-ui_page_preload 'yes'
+loadscreen_manual_shutdown 'yes'
 
-
-shared_script '@ox_lib/init.lua'
+shared_scripts {
+    -- '@ox_lib/init.lua',
+    'lib/MySQL.lua',
+    'global/**/*',
+    "lib/IdManager.lua",
+   "lib/loader.lua",
+    "lib/class.lua",
+    "lib/Tunnel.lua",
+    "lib/Proxy.lua",
+    "lib/Utils.lua",
+}
 
 server_scripts {
-    'lib/MySQL.lua',
-    'core/callbacks.lua',
     'core/init.lua',
+    'core/callbacks.lua',
     'core/database.lua',
     'core/prepares.lua',
     'core/cards.lua',
@@ -23,11 +31,23 @@ server_scripts {
     'core/statebag.lua',
     'server/main.lua',
     'server/commands.lua',
-
 }
 
 client_scripts {
+    'client/init.lua',
     'client/callbacks.lua',
     'client/spawn.lua',
     'client/main.lua',
+}
+
+files {
+    "lib/loader.lua",
+    "lib/class.lua",
+    "lib/IdManager.lua",
+    "lib/Tunnel.lua",
+    "lib/Proxy.lua",
+    "lib/Utils.lua",
+    -- Inclua arquivos estáticos se usar UI ou outros
+    -- 'ui/index.html',
+    -- 'ui/*.*',
 }

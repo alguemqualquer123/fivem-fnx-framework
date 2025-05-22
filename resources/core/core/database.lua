@@ -4,6 +4,7 @@ local table_schema = [[
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     whitelist INT DEFAULT 0,
+    chars INT DEFAULT 1,
     priority INT DEFAULT 0,
     license VARCHAR(64) UNIQUE,
     name VARCHAR(50),
@@ -12,14 +13,14 @@ CREATE TABLE IF NOT EXISTS users (
 )
 ]]
 
-local table_whitelist = [[
-CREATE TABLE IF NOT EXISTS whitelist (
-    license VARCHAR(64) PRIMARY KEY,
-    name VARCHAR(50),
-    priority INT DEFAULT 0,
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-]]
+-- local table_whitelist = [[
+-- CREATE TABLE IF NOT EXISTS whitelist (
+--     license VARCHAR(64) PRIMARY KEY,
+--     name VARCHAR(50),
+--     priority INT DEFAULT 0,
+--     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+-- ]]
 local table_players = [[
 CREATE TABLE IF NOT EXISTS players (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,13 +44,13 @@ CREATE TABLE IF NOT EXISTS bans (
 
 function InitDatabase()
     MySQL.query(table_schema)
-    MySQL.query(table_whitelist)
+    -- MySQL.query(table_whitelist)
     MySQL.query(table_players)
     MySQL.query(table_bans)
 end
 
 function GetUserData(license)
-    local Low = FCore.Query("core:isAccount", {
+    local Low = Core.Query("core:isAccount", {
         license = license
     })
     return Low[1]
@@ -83,7 +84,7 @@ function EnsureAccount(license, name)
     return Citizen.Await(p)
 end
 
-function FCore.Prepare(name, query)
+function Core.Prepare(name, query)
     if not name or not query then
         print("^1[coreNova] Prepare: nome ou query inválida.^0")
         return
@@ -91,7 +92,7 @@ function FCore.Prepare(name, query)
     Prepares[name] = query or {}
 end
 
-function FCore.Execute(query) 
+function Core.Execute(query) 
   local p = promise.new()
 
     MySQL.query(query, {}, function(result)
@@ -101,7 +102,7 @@ function FCore.Execute(query)
     return Citizen.Await(p)
 end
 
-function FCore.Query(name, params)
+function Core.Query(name, params)
     local query = Prepares[name]
     if not query then
         print("^1[coreNova] Query: '" .. name .. "' não foi preparada.^0")

@@ -1,4 +1,4 @@
-function FCore.LoadPlayer(src)
+function Core.LoadPlayer(src)
     local license = GetIdentifier(src, "license")
     if not license then return end
 
@@ -23,14 +23,14 @@ function FCore.LoadPlayer(src)
                 license,
                 GetPlayerName(src)
             }, function(inserted)
-                FCore.LoadPlayer(src)
+                Core.LoadPlayer(src)
             end)
         end
     end)
     return Citizen.Await(p)
 end
 
-function FCore.SavePlayer(src)
+function Core.SavePlayer(src)
     local data = players[src]
     if not data then return end
 
@@ -44,8 +44,8 @@ function FCore.SavePlayer(src)
     })
 end
 
-function FCore.OnPlayerDropped(src)
-    FCore.SavePlayer(src)
+function Core.OnPlayerDropped(src)
+    Core.SavePlayer(src)
     players[src] = nil
 end
 

@@ -1,5 +1,5 @@
 local spawnedPed = nil
-
+  
 RegisterNetEvent("coreNova:Opened")
 AddEventHandler("coreNova:Opened", function()
     DoScreenFadeOut(0)
@@ -16,17 +16,16 @@ AddEventHandler("coreNova:Opened", function()
         Wait(0)
     end
 
-    spawnedPed = CreatePed(4, model, spawnCoords.x, spawnCoords.y, spawnCoords.z, heading, false, true)
-    SetEntityAsMissionEntity(spawnedPed, true, true)
-    SetPedDefaultComponentVariation(spawnedPed)
-
     SetPlayerModel(PlayerId(), model)
+    SetPedDefaultComponentVariation(PlayerPedId())
+
     SetEntityCoords(PlayerPedId(), spawnCoords.x, spawnCoords.y, spawnCoords.z, false, false, false, true)
     SetEntityHeading(PlayerPedId(), heading)
     FreezeEntityPosition(PlayerPedId(), false)
 
     DoScreenFadeIn(1000)
 end)
+
 
 AddEventHandler("onResourceStop", function(resource)
     if resource == GetCurrentResourceName() and spawnedPed then

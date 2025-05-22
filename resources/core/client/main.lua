@@ -1,7 +1,13 @@
 local noClip = false
 local speed = 1.0
 
-RegisterClientCallback("noClip", function(data, cb)
+Citizen.CreateThread(function()
+    local resposta = CoreServer.testar("Olá servidor!")
+    print(resposta)
+end)
+
+CoreClient.noClip = function()
+    print("aaaaaaaaa")
     noClip = not noClip
     local ped = PlayerPedId()
 
@@ -13,7 +19,9 @@ RegisterClientCallback("noClip", function(data, cb)
         SetEntityFreeze(ped, false, false)
         SetEveryoneIgnorePlayer(PlayerId(), true)
         SetPoliceIgnorePlayer(PlayerId(), true)
-        TriggerEvent("chat:addMessage", { args = { "[NoClip]", "Ativado" } })
+        TriggerEvent("chat:addMessage", {
+            args = {"[NoClip]", "Ativado"}
+        })
     else
         SetEntityInvincible(ped, false)
         SetEntityVisible(ped, true, false)
@@ -21,9 +29,14 @@ RegisterClientCallback("noClip", function(data, cb)
         ResetEntityAlpha(ped)
         SetEveryoneIgnorePlayer(PlayerId(), false)
         SetPoliceIgnorePlayer(PlayerId(), false)
-        TriggerEvent("chat:addMessage", { args = { "[NoClip]", "Desativado" } })
+        TriggerEvent("chat:addMessage", {
+            args = {"[NoClip]", "Desativado"}
+        })
     end
+end
 
+RegisterClientCallback("noClip", function(data, cb)
+    CoreClient.noClip()
     cb(noClip)
 end)
 
@@ -70,10 +83,6 @@ CreateThread(function()
     end
 end)
 
-
-
-
-
 CreateThread(function()
     while true do
         Wait(2000)
@@ -81,7 +90,7 @@ CreateThread(function()
         if player.money then
             print("Você tem $" .. player.money)
         end
-        local job = TriggerServerCallback('getPlayerJob')
+        local job = CoreServer.getPlayerJob()
         if job then
             print('Meu trabalho é: ', job)
         end
